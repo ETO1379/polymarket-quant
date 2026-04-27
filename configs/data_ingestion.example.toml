@@ -1,0 +1,48 @@
+[data_ingestion]
+dry_run = true
+live_trading_allowed = false
+config_version = "example-mvp"
+
+[data_ingestion.polymarket]
+api_base_url = "https://gamma-api.polymarket.com"
+clob_base_url = "https://clob.polymarket.com"
+data_base_url = "https://data-api.polymarket.com"
+request_timeout_seconds = 10
+retry_times = 3
+rate_limit_per_second = 2
+price_refresh_interval_seconds = 60
+orderbook_depth_limit = 20
+
+[data_ingestion.polymarket.market_filters]
+tags = ["weather"]
+keywords = []
+active = true
+closed = false
+resolved = false
+market_ids = []
+event_ids = []
+
+[data_ingestion.account]
+wallet_address = "${POLYMARKET_WALLET_ADDRESS}"
+api_key_ref = "POLYMARKET_API_KEY"
+private_key_ref = "POLYMARKET_PRIVATE_KEY"
+account_refresh_interval_seconds = 60
+include_orders = true
+include_trades = true
+include_deposit_withdraw = false
+
+[data_ingestion.weather]
+enabled_providers = ["open_meteo"]
+default_forecast_provider = "open_meteo"
+forecast_horizon_days = 7
+observation_window_days = 3
+timezone_policy = "resolution_timezone_first"
+resolution_source_policy = "manual_review_if_unclear"
+variables = ["temperature_2m", "precipitation", "wind_speed_10m"]
+
+[data_ingestion.price_history]
+enabled = true
+default_fidelity = "1h"
+max_backfill_days = 30
+batch_size = 20
+allow_max_range = false
